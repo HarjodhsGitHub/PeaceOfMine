@@ -20,6 +20,8 @@ def main(
     lli_baud_rate: int = 921600,
     ## LiDAR Settings
     use_lidar: bool = True,
+    # Encoder Settings
+    use_two_encoders: bool = True,
     ## RTK-GPS Settings
     use_rtk: bool = True,
     rtk_device: str = '/dev/ttyACM1',
@@ -47,6 +49,7 @@ def main(
                    map_pkg=map_pkg,
                    map_name=map_name,
                    use_lidar=use_lidar,
+                   use_two_encoders=use_two_encoders,
                    use_rtk=use_rtk,
                    rtk_device=rtk_device,
                    rtk_baud=rtk_baud,

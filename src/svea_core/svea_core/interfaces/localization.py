@@ -4,6 +4,7 @@ from rclpy.duration import Duration
 from rclpy.qos import QoSProfile, QoSDurabilityPolicy, QoSReliabilityPolicy, QoSHistoryPolicy
 
 import tf2_ros
+import tf2_geometry_msgs
 from tf_transformations import euler_from_quaternion
 from geometry_msgs.msg import PoseStamped, TwistStamped
 from nav_msgs.msg import Odometry
@@ -54,7 +55,14 @@ class LocalizationInterface(rx.Field):
         if not self._is_started():
             return
 
-        self._odom_msg = self.transform_odom(msg)
+        try:
+            self._odom_msg = self.transform_odom(msg)
+        except RuntimeError as e:
+            self.node.get_logger().warning(
+                f"TF not ready yet, skipping odom: {e}",
+                throttle_duration_sec=2.0)
+            return
+
         for cb in self._odom_callbacks:
             if not rclpy.ok():
                 break
