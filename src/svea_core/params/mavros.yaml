@@ -17,7 +17,7 @@
 /**/wheel_odometry:
   ros__parameters:
     use_rpm: false
-    send_raw: false
+    send_raw: true
     send_twist: true
     frame_id: "$(var odom_frame)"
     child_frame_id: "$(var base_frame)"
