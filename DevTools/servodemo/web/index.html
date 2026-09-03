@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ArbotiX-M Servo Toolbox</title>
+  <link rel="stylesheet" href="vendor/uPlot.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div><h1>ArbotiX-M Servo Toolbox</h1><p id="status">Disconnected</p></div>
+    <div class="header-actions"><button id="connect">Connect ArbotiX</button><button id="estop" class="danger" disabled>E-STOP ALL</button></div>
+  </header>
+  <main>
+    <aside>
+      <h2>Detected servos</h2><p>Select the servo IDs commands and charts should affect.</p>
+      <div id="servos"><p class="empty">Connect to scan the bus.</p></div>
+    </aside>
+    <section>
+      <h2 id="title">No servos selected</h2>
+      <p class="help">Joint mode controls position. Wheel mode controls continuous rotation. Changing mode always disables torque first.</p>
+      <div class="controls"><button data-action="joint" disabled>Joint mode</button><button data-action="wheel" disabled>Wheel mode</button><button data-action="torque" disabled>Toggle torque</button><button data-action="led" disabled>Toggle LED</button></div>
+      <div class="control-block">
+        <h3>Position / wheel jog</h3><input id="position" type="range" min="0" max="1000" value="0" aria-label="Position">
+        <div class="controls"><button data-action="jog-" disabled>−10°</button><button data-action="jog+" disabled>+10°</button><button data-action="ccw" disabled>◀ CCW</button><button data-action="cw" disabled>CW ▶</button><button data-action="stop" disabled>Wheel stop</button></div>
+      </div>
+      <div class="control-block"><h3>Speed</h3><input id="speed" type="range" min="1" max="1023" value="80" aria-label="Speed"></div>
+      <div id="telemetry" aria-live="polite"></div>
+      <section class="chart-panel" aria-labelledby="load-title">
+        <div class="chart-heading"><div><h2 id="load-title">Load history</h2><p>Rolling 60 seconds · selected servos</p></div><span class="chart-badge">PRESENT LOAD</span></div>
+        <p class="chart-note">Signed DYNAMIXEL load estimate (−100% to +100%). This register is not a calibrated measurement of physical force, pressure, or output torque.</p>
+        <div id="load-chart" aria-label="Signed present load history chart"></div>
+      </section>
+    </section>
+  </main>
+  <script src="vendor/uPlot.iife.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

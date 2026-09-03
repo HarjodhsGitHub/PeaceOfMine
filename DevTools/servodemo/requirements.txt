@@ -1,0 +1,4 @@
+# Runtime dependencies for mx64_slider.py
+pygame>=2.6,<3
+pyserial>=3.5,<4
+dynamixel-sdk>=3.7,<4
